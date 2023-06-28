@@ -50,12 +50,12 @@ os.chdir(cd)
 #os.system('pwd')
 
 #Executes git add . git commit -m "cat" git push
-#git_add = 'git add .'
-#git_commit = 'git commit -m "cat"'
-#git_push = 'git push'
+git_add = 'git add .'
+git_commit = 'git commit -m "cat"'
+git_push = 'git push'
 
-#os.system(git_add)
-#os.system(git_commit)
-#os.system(git_push)
+os.system(git_add)
+os.system(git_commit)
+os.system(git_push)
 
 
