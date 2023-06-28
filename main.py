@@ -1,6 +1,12 @@
 import os
 import random
 from pathlib import Path
+import openai
+
+f = os.open("desktop/git-random-push/key.py", os.O_RDONLY)
+key = os.read(f, 10)
+print(key)
+
 
 #DECLARING: a file name starting with 0x
 file_name = '0x'
