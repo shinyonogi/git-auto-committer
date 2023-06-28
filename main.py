@@ -6,10 +6,8 @@ import openai
 #This is my local file where the API key is stored
 import key
 
-#DECLARING/DEFINING: OpenAI API related stuffs
-#openai.organization = "org-YfzDMiFaADql2DDOranSinUT"
+#Importing the API Key from the local file
 openai.api_key = key.api_key
-
 
 #STORE: Answers in an array -> Same answers should not occur
 answers = []
