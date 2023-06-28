@@ -9,7 +9,7 @@ import key
 #DECLARING/DEFINING: OpenAI API related stuffs
 openai.organization = "org-YfzDMiFaADql2DDOranSinUT"
 openai.api_key = key.api_key
-openai.Model.list()
+#openai.Model.list()
 
 
 #STORE: Answers in an array -> Same answers should not occur
