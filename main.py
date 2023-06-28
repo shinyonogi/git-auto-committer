@@ -2,9 +2,21 @@ import os
 import random
 from pathlib import Path
 import openai
+
+#This is my local file where the API key is stored
 import key
 
-print(key.api_key)
+#DECLARING/DEFINING: OpenAI API related stuffs
+openai.organization = "org-YfzDMiFaADql2DDOranSinUT"
+openai.api_key = key.api_key
+openai.Model.list()
+
+
+#STORE: Answers in an array -> Same answers should not occur
+answers = []
+
+#DEFINE: Text that should be modified
+text = "まゆこりんに勝ちたい。"
 
 
 #DECLARING: a file name starting with 0x
@@ -66,15 +78,36 @@ for c in range(commit_times):
     except FileNotFoundError:
         pass
 
+    content = f"""
+    言われた分を違う表現に直して返してください。上限は一文です。
+    ですが、以下の表現と完全に一致してはいけません。
+    {str(answers)}
+    """
+
+    #DEFINE: The state
+    context = [{"role": "system", "content": content}]
+
+    #SEND: Message to OpenAI API
+    send_message = context + [{"role": "user", "content": text}]
+    response = openai.ChatCompletion.create(
+        model = "gpt-3.5-turbo-0301",
+        messages = send_message
+    )
+
+    #RECEIVE: Message from the server
+    received_message = response.choices[0].message
+
+    #APPEND: The answer to the list so it does not get repeated
+    answers.append(received_message["content"])
+
+
     #DEFINE: the git commands as Strings
     git_add = 'git add .'
-    git_commit = 'git commit -m "cat"'
-    #git_push = 'git push'
+    git_commit = 'git commit -m "' + received_message["content"] + '"'
 
     #EXECUTES: git add . git commit -m "cat" git push
     os.system(git_add)
     os.system(git_commit)
-    #os.system(git_push)
 
     #RESET: the file name and path name so that it can be looped
     file_name = '0x'
