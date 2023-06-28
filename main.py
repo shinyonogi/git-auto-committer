@@ -4,7 +4,7 @@ from pathlib import Path
 import openai
 
 f = os.open("desktop/git-random-push/key.py", os.O_RDONLY)
-key = os.read(f, 10)
+key = os.read(f, 100)
 print(key)
 
 
