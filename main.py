@@ -62,7 +62,7 @@ for c in range(commit_times):
     os.system(git_commit)
     os.system(git_push)
 
-    #Reset the file name so that it can be looped
+    #Reset the file name and path name so that it can be looped
     file_name = '0x'
-
+    path_name = ''
 
