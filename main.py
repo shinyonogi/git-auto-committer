@@ -54,9 +54,12 @@ for c in range(commit_times):
     f.close()
 
     #Changing directory (CD)
-    cd = 'desktop/git-random-push/'
-    os.chdir(cd)
-    #os.system('pwd')
+    try:
+        cd = 'desktop/git-random-push/'
+        os.chdir(cd)
+        #os.system('pwd')
+    except FileNotFoundError:
+        pass
 
     #Executes git add . git commit -m "cat" git push
     git_add = 'git add .'
