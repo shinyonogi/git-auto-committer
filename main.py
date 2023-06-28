@@ -31,31 +31,35 @@ def convert_into_16(n):
 
     return num_converted
 
-#CREATING: Randomly generates a 5bit file name
-for i in range(10):
-    file_name += str(convert_into_16(random.randint(0, 15)))
+#This is how many times I commit
+commit_times = random.randint(5, 15)
 
-#CREATING: Touch a file with the created file name
-path_name = 'desktop/git-random-push/' + file_name
-Path(path_name).touch()
+for c in range(commit_times):
+    #CREATING: Randomly generates a 5bit file name
+    for i in range(10):
+        file_name += str(convert_into_16(random.randint(0, 15)))
 
-#Writes the sentence into the file
-f = open(path_name, "a")
-f.write("I'm smiling :)")
-f.close()
+    #CREATING: Touch a file with the created file name
+    path_name = 'desktop/git-random-push/' + file_name
+    Path(path_name).touch()
 
-#Changing directory (CD)
-cd = 'desktop/git-random-push/'
-os.chdir(cd)
-#os.system('pwd')
+    #Writes the sentence into the file
+    f = open(path_name, "a")
+    f.write("I'm smiling :)")
+    f.close()
 
-#Executes git add . git commit -m "cat" git push
-git_add = 'git add .'
-git_commit = 'git commit -m "cat"'
-git_push = 'git push'
+    #Changing directory (CD)
+    cd = 'desktop/git-random-push/'
+    os.chdir(cd)
+    #os.system('pwd')
 
-os.system(git_add)
-os.system(git_commit)
-os.system(git_push)
+    #Executes git add . git commit -m "cat" git push
+    git_add = 'git add .'
+    git_commit = 'git commit -m "cat"'
+    git_push = 'git push'
+
+    os.system(git_add)
+    os.system(git_commit)
+    os.system(git_push)
 
 
