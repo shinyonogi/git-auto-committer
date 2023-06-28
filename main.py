@@ -64,14 +64,16 @@ for c in range(commit_times):
     #DEFINE: the git commands as Strings
     git_add = 'git add .'
     git_commit = 'git commit -m "cat"'
-    git_push = 'git push'
+    #git_push = 'git push'
 
     #EXECUTES: git add . git commit -m "cat" git push
     os.system(git_add)
     os.system(git_commit)
-    os.system(git_push)
+    #os.system(git_push)
 
     #RESET: the file name and path name so that it can be looped
     file_name = '0x'
     path_name = ''
 
+git_push = 'git push'
+os.system(git_push)
