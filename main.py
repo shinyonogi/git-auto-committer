@@ -12,8 +12,8 @@ openai.api_key = key.api_key
 
 #Setting up Telegram
 TOKEN = key.telegram_api_key
-url = f"https://api.telegram.org/bot{TOKEN}/getUpdates"
-print(requests.get(url).json())
+ID = key.chat_id
+#url = f"https://api.telegram.org/bot{TOKEN}/getUpdates"
 
 
 #STORE: Answers in an array -> Same answers should not occur
@@ -104,6 +104,9 @@ for c in range(commit_times):
     #APPEND: The answer to the list so it does not get repeated
     answers.append(received_message["content"])
 
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={ID}&text={received_message['content']}"
+    print("Sending message from Bot...")
+    print(requests.get(url).json())
 
     #DEFINE: the git commands as Strings
     git_add = 'git add .'
