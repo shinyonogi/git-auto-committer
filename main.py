@@ -39,8 +39,13 @@ for c in range(commit_times):
     for i in range(10):
         file_name += str(convert_into_16(random.randint(0, 15)))
 
-    #CREATING: Touch a file with the created file name
-    path_name = 'desktop/git-random-push/' + file_name
+    match c:
+        case 0:
+            #CREATING: Touch a file with the created file name
+            path_name = 'desktop/git-random-push/' + file_name
+        case _:
+            path_name = file_name
+
     Path(path_name).touch()
 
     #Writes the sentence into the file
