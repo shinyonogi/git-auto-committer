@@ -2,12 +2,19 @@ import os
 import random
 from pathlib import Path
 import openai
+import requests
 
 #This is my local file where the API key is stored
 import key
 
-#Importing the API Key from the local file
+#Importing the API Key from the local file and set it to OpenAI API key
 openai.api_key = key.api_key
+
+#Setting up Telegram
+TOKEN = key.telegram_api_key
+url = f"https://api.telegram.org/bot{TOKEN}/getUpdates"
+print(requests.get(url).json())
+
 
 #STORE: Answers in an array -> Same answers should not occur
 answers = []
