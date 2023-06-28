@@ -13,21 +13,20 @@ def convert_into_16(n):
     num_converted = 0
 
     if(n > 9):
-        match n:
-            case 10:
-                num_converted = 'A'
-            case 11:
-                num_converted = 'B'
-            case 12:
-                num_converted = 'C'
-            case 13:
-                num_converted = 'D'
-            case 14:
-                num_converted = 'E'
-            case 15:
-                num_converted = 'F'
-            case _:
-                num_converted = 'error occured'
+        if(n == 10):
+            num_converted = 'A'
+        elif(n == 11):
+            num_converted = 'B'
+        elif(n == 12):
+            num_converted = 'C'
+        elif(n == 13):
+            num_converted = 'D'
+        elif(n == 14):
+            num_converted = 'E'
+        elif(n == 15):
+            num_converted = 'F'
+        else:
+            num_converted = 'error occured'
     else:
         num_converted = n
 
@@ -40,11 +39,10 @@ for c in range(commit_times):
         file_name += str(convert_into_16(random.randint(0, 15)))
 
     #ATTENTION: Path name is going to be different after you change the directory below
-    match c:
-        case 0:
-            path_name = 'desktop/git-random-push/' + file_name
-        case _:
-            path_name = file_name
+    if(c == 0):
+        path_name = 'desktop/git-random-push/' + file_name
+    else:
+        path_name = file_name
 
     #CREATING: Touch a file with the created file name
     Path(path_name).touch()
