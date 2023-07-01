@@ -3,6 +3,8 @@ import random
 from pathlib import Path
 import openai
 import requests
+from linebot import LineBotApi
+from linebot.models import TextSendMessage
 
 #This is my local file where the API key is stored
 import key
@@ -14,6 +16,11 @@ openai.api_key = key.api_key
 TOKEN = key.telegram_api_key
 ID = key.chat_id
 #url = f"https://api.telegram.org/bot{TOKEN}/getUpdates"
+
+#Setting up LINE
+CHANNEL_ACCESS_TOKEN = str(key.CHANNEL_ACCESS_TOKEN)
+USER_ID = key.USER_ID
+line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 
 
 #STORE: Answers in an array -> Same answers should not occur
@@ -60,9 +67,9 @@ for c in range(commit_times):
         file_name += str(convert_into_16(random.randint(0, 15)))
 
     #ATTENTION: Path name is going to be different after you change the directory below
-    if(c == 0):
-        path_name = 'desktop/git-random-push/' + file_name
-    else:
+    #if(c == 0):
+    #    path_name = 'desktop/git-random-push/' + file_name
+    #else:
         path_name = file_name
 
     #CREATING: Touch a file with the created file name
@@ -107,6 +114,9 @@ for c in range(commit_times):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={ID}&text={received_message['content']}"
     print("Sending message from Bot...")
     print(requests.get(url).json())
+
+    messages = TextSendMessage(text=received_message['content'])
+    line_bot_api.push_message(USER_ID, messages = messages)
 
     #DEFINE: the git commands as Strings
     git_add = 'git add .'
