@@ -70,7 +70,7 @@ for c in range(commit_times):
     #if(c == 0):
     #    path_name = 'desktop/git-random-push/' + file_name
     #else:
-        path_name = file_name
+    path_name = file_name
 
     #CREATING: Touch a file with the created file name
     Path(path_name).touch()
