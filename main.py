@@ -2,6 +2,7 @@ import random
 from dotenv import load_dotenv
 import openai
 from pathlib import Path
+import logging
 
 from send_messages import send_line_message
 from send_messages import send_telegram_message
@@ -15,6 +16,20 @@ from utils import get_env_variable
 from utils import convert_to_hex
 
 def main():
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+    file_handler = logging.FileHandler('app.log')
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(formatter)
+
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    logger.addHandler(file_handler)
+    logger.addHandler(stream_handler)
+
     load_dotenv()
 
     use_openai = get_env_use_api('USE_OPENAI').lower() == 'true'
