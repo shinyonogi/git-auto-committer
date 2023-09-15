@@ -9,6 +9,8 @@ from send_messages import send_telegram_message
 
 from generate_messages import commit_message_generation
 
+from git_things import git_commit_and_push
+
 from utils import get_env_variable
 from utils import convert_to_hex
 
@@ -33,10 +35,7 @@ def main():
         send_telegram_message(telegram_bot_token, telegram_chat_id, commit_message)
         send_line_message(line_channel_access_token, line_user_id, commit_message)
 
-        os.system("git add .")
-        os.system(f'git commit -m "{commit_message}"')
-
-    os.system("git push")
+        git_commit_and_push(commit_message)
 
 
 if __name__ == "__main__":
