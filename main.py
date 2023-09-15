@@ -44,7 +44,7 @@ def main():
         line_bot_api.push_message(line_user_id, messages=TextSendMessage(text=commit_message))
 
         os.system("git add .")
-        os.system(f"git commit -m '{commit_message}'")
+        os.system(f'git commit -m "{commit_message}"')
 
     os.system("git push")
 
