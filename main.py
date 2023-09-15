@@ -31,12 +31,12 @@ def main():
     file_name = f"randomAddresses/{random_address_name}"
     Path(file_name).touch()
 
-    file = open(file_name, "a")
-
     for today_contribution_number in range(random.randint(5, 15)):
         commit_message = commit_message_generation()
 
+        file = open(file_name, "a")
         file.write(f"{commit_message}\n")
+        file.close()
 
         telegram_url = f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_chat_id}&text={commit_message}"
         requests.get(telegram_url)
@@ -46,7 +46,6 @@ def main():
         os.system("git add .")
         os.system(f"git commit -m '{commit_message}'")
 
-    file.close()
     os.system("git push")
 
 
