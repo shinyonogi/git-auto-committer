@@ -5,7 +5,7 @@ from linebot.models import TextSendMessage
 
 from requests.exceptions import RequestException
 
-from utils import get_env_variable
+from src.utils import get_env_variable
 
 def send_telegram_message(message):
     try:

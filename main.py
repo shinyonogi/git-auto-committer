@@ -4,16 +4,16 @@ import openai
 from pathlib import Path
 import logging
 
-from send_messages import send_line_message
-from send_messages import send_telegram_message
+from src.send_messages import send_line_message
+from src.send_messages import send_telegram_message
 
-from generate_messages import gpt_commit_message_generation
+from src.generate_messages import gpt_commit_message_generation
 
-from git_things import git_commit_and_push
+from src.git_things import git_commit_and_push
 
-from utils import get_env_use_api
-from utils import get_env_variable
-from utils import convert_to_hex
+from src.utils import get_env_use_api
+from src.utils import get_env_variable
+from src.utils import convert_to_hex
 
 def main():
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
