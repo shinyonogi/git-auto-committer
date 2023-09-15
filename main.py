@@ -40,7 +40,7 @@ def main():
         openai.api_key = get_env_variable('OPENAI_API_KEY')
 
     random_address_name = "0x" + "".join([convert_to_hex(random.randint(0, 15)) for _ in range(10)])
-    file_name = f"randomAddresses/{random_address_name}"
+    file_name = f"random_addresses/{random_address_name}"
     Path(file_name).touch()
 
     for _ in range(random.randint(5, 15)):
