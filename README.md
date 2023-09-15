@@ -5,7 +5,7 @@
 ## 原理：
 1. **main.py**を実行すると、**randomAddresses** フォルダに新しいファイルが作成されます。
 2. OpenAI APIを使用して、適当にメッセージをGPTから取得します。
-3. このメッセージをファイルに書き込みます。
+3. このメッセージをファイルに書き込みます。  
 (4. 生成されたメッセージをLine BotやTelegram Botを介して通知します。)
 5. **git add, git commit, git push** を順次実行します。
 
