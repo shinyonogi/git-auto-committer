@@ -1,5 +1,4 @@
 import os
-import openai
 
 def get_env_variable(key, default=None):
     value = os.environ.get(key)
@@ -13,15 +12,3 @@ def convert_to_hex(n):
         return hex_digits[n]
     else:
         return 'error occured'
-
-def commit_message_generation():
-    content = f"""
-    Give me an interesting random fact in one sentence.
-    """
-    message = [{"role": "user", "content": content}]
-
-    response = openai.ChatCompletion.create(
-        model = "gpt-3.5-turbo-0301",
-        messages = message
-    )
-    return response.choices[0].message.content
