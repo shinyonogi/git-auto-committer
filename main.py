@@ -10,15 +10,16 @@ from generate_messages import gpt_commit_message_generation
 
 from git_things import git_commit_and_push
 
+from utils import get_env_use_api
 from utils import get_env_variable
 from utils import convert_to_hex
 
 def main():
     load_dotenv()
 
-    use_openai = get_env_variable('USE_OPENAI').lower() == 'true'
-    use_telegram = get_env_variable('USE_TELEGRAM').lower() == 'true'
-    use_line = get_env_variable('USE_LINE').lower() == 'true'
+    use_openai = get_env_use_api('USE_OPENAI').lower() == 'true'
+    use_telegram = get_env_use_api('USE_TELEGRAM').lower() == 'true'
+    use_line = get_env_use_api('USE_LINE').lower() == 'true'
 
     random_address_name = "0x" + "".join([convert_to_hex(random.randint(0, 15)) for _ in range(10)])
     file_name = f"randomAddresses/{random_address_name}"
