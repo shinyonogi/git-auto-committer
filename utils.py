@@ -3,8 +3,10 @@ import os
 def get_env_use_api(key, default=None):
     value = os.environ.get(key)
     if value is None:
-        return False
-    return value
+        return "false"
+    if value.lower() not in ["true", "false"]:
+        raise ValueError(f"Invalid value for {key}. Expected 'true' or 'false'.")
+    return value.lower() == "true"
 
 def get_env_variable(key, default=None):
     value = os.environ.get(key)
@@ -13,5 +15,7 @@ def get_env_variable(key, default=None):
     return value
 
 def convert_to_hex(n):
+    if not (0 <= n <= 15):
+        raise ValueError(f"Expected an integer between 0 and 15, but got {n}.")
     hex_digits = "0123456789ABCDEF"
     return hex_digits[n]
