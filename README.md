@@ -1,37 +1,53 @@
-# Git Auto Random Committer
-全自動でGitHub Contributionカレンダーの草を生やしまくりましょっ🌱っていうプログラムです。
+# Git Auto Committer 🌱
 
-ソースコードは、`main.py`にあります。
+楽〜にGitHub Contributionカレンダーの草を生やしまくりましょう！自動でテキトーなコミットメッセージを生成し、GitHubにプッシュします。
 
-## Requirements: 
+## 原理：
+1. *main.py*を実行すると、*randomAddresses* フォルダに新しいファイルが作成されます。
+2. OpenAI APIを使用して、適当にメッセージをGPTから取得します。
+3. このメッセージをファイルに書き込みます。
+(4. 生成されたメッセージをLine BotやTelegram Botを介して通知します。)
+5. *git add, git commit, git push* を順次実行します。
+
+## 使い方:
+
+### モジュール
 
 Pythonのライブラリ/モジュールがいくつか必要です。必要であれば、`pip install`を使ってインストールして下さい。
 
 ※現時点で必要なもの達です。
 
-- `openai`
 - `os`
 - `random`
+- `requests`
+- `openai`
+- `linebot`
 - `from pathlib Path`
-- `requests` 
 
-## 😎 Version 1.0 (Created 28.06.23)
+### 環境変数の設定
 
-実行すると、自動で5-15回ランダムにファイルを生成し、commitし、pushします。
+1. ルートディレクトリに *.env* ファイルを作成します。
+2. .env 内で以下の環境変数を設定します：  　　
+- *OPENAI_API_KEY*: OpenAIのAPIキー (公式ホームページで取得)
 
-### Version 1.1  (Updated 28.06.23)
+オプション：
+- *TELEGRAM_BOT_TOKEN*: TelegramのBotトークン (BotFatherで取得)　　
+- *TELEGRAM_CHAT_ID*: あなたのTelegram Chat ID (気合いで見つけます)
+- *LINE_CHANNEL_ACCESS_TOKEN*: Line Developersから取得
+- *LINE_USER_ID*: あなたのLineユーザーID (頑張って見つけます)
 
-MacのAutomatorを使い、毎日自動でプログラムを実行します。(ローカルのパソコン内で設定必要あり)
+### Commit Message 自動生成
 
-### Version 1.2  (Updated 28.06.23)
+メッセージはGPT-3.5-Turboを使用して生成されますが、`generate_messages.py`内でカスタマイズ可能です。
 
-効率化に成功しました。
+### Telegramとラインを使う。
+生成されたメッセージをボット経由で自分に送信することができます。これを有効にするには、関連する環境変数を設定し、`main.py`のコメントアウト部分を解除してください。
 
-## 😀 Version 2.0 (Updated 28.06.23)
+## Version 1.0 (Updated)
 
-OpenAI社のAPIを使い、コミットメッセージを自動生成します。
+一度の実行で、5〜15回の自動Commit & Pushを行います。
 
-## 🥸 Version 3.0 (Updated 28.06.23)
+## 更にOptional...
 
-TelegramのBotを使い、コミットメッセージを自動で自分に送信します。
+MacのAutomatorを利用して、プログラムを日常的に自動実行することもできます（ローカル設定が必要です）。
 

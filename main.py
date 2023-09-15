@@ -16,7 +16,6 @@ from utils import convert_to_hex
 def main():
     load_dotenv()
     openai.api_key = get_env_variable('OPENAI_API_KEY')
-    ##ボットを使って自分にメッセージを送りたい場合は、コメントアウトを外してください！(l.35 & l.36同様)
     #telegram_bot_token = get_env_variable('TELEGRAM_BOT_TOKEN')
     #telegram_chat_id = get_env_variable('TELEGRAM_CHAT_ID')
     #line_channel_access_token = get_env_variable('LINE_CHANNEL_ACCESS_TOKEN')
