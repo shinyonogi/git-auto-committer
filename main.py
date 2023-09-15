@@ -11,7 +11,6 @@ import key
 
 #Importing the API Key from the local file and set it to OpenAI API key
 openai.api_key = key.api_key
-
 #Setting up Telegram
 TOKEN = key.telegram_api_key
 ID = key.chat_id
