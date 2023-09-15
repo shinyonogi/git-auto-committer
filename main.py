@@ -1,4 +1,6 @@
 import os
+import io
+from dotenv import load_dotenv
 import random
 from pathlib import Path
 import openai
@@ -6,128 +8,47 @@ import requests
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
 
-#This is my local file where the API key is stored
-import key
+from utils import get_env_variable
+from utils import convert_to_hex
+from utils import commit_message_generation
 
-#Importing the API Key from the local file and set it to OpenAI API key
-openai.api_key = key.api_key
-#Setting up Telegram
-TOKEN = key.telegram_api_key
-ID = key.chat_id
-#url = f"https://api.telegram.org/bot{TOKEN}/getUpdates"
+def main():
+    load_dotenv()
+    openai_api_key = get_env_variable('OPENAI_API_KEY')
+    telegram_bot_token = get_env_variable('TELEGRAM_BOT_TOKEN')
+    telegram_chat_id = get_env_variable('TELEGRAM_CHAT_ID')
+    line_channel_access_token = get_env_variable('LINE_CHANNEL_ACCESS_TOKEN')
+    line_user_id = get_env_variable('LINE_USER_ID')
 
-#Setting up LINE
-CHANNEL_ACCESS_TOKEN = str(key.CHANNEL_ACCESS_TOKEN)
-USER_ID = key.USER_ID
-line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
+    openai.api_key = openai_api_key
+    line_bot_api = LineBotApi(line_channel_access_token)
 
-
-#STORE: Answers in an array -> Same answers should not occur
-answers = []
-
-#DEFINE: Text that should be modified
-text = "まゆこりんに勝ちたい。"
-
-
-#DECLARING: a file name starting with 0x
-file_name = '0x'
-#This is how many times I commit
-commit_times = random.randint(5, 15)
-
-#FUNCTION: Takes a natural number n as an argument and returns the HEX
-def convert_into_16(n):
-
-    num_converted = 0
-
-    if(n > 9):
-        if(n == 10):
-            num_converted = 'A'
-        elif(n == 11):
-            num_converted = 'B'
-        elif(n == 12):
-            num_converted = 'C'
-        elif(n == 13):
-            num_converted = 'D'
-        elif(n == 14):
-            num_converted = 'E'
-        elif(n == 15):
-            num_converted = 'F'
-        else:
-            num_converted = 'error occured'
-    else:
-        num_converted = n
-
-    return num_converted
-
-#LOOP: As many times as I should commit on a day
-for c in range(commit_times):
-    #CREATING: Randomly generates a 5bit file name
+    buffer = io.StringIO()
     for i in range(10):
-        file_name += str(convert_into_16(random.randint(0, 15)))
+        buffer.write(str(convert_to_hex(random.randint(0, 15))))
+    random_address_name = f"0x{buffer.getvalue()}"
+    buffer.close()
+    file_name = f"randomAddresses/{random_address_name}"
+    Path(file_name).touch()
 
-    #ATTENTION: Path name is going to be different after you change the directory below
-    #if(c == 0):
-    #    path_name = 'desktop/git-random-push/' + file_name
-    #else:
-    path_name = file_name
+    file = open(file_name, "a")
 
-    #CREATING: Touch a file with the created file name
-    Path(path_name).touch()
+    for today_contribution_number in range(random.randint(5, 15)):
+        commit_message = commit_message_generation()
 
-    #Writes the sentence into the file
-    f = open(path_name, "a")
-    f.write("I'm smiling :)")
-    f.close()
+        file.write(f"{commit_message}\n")
 
-    #Changing directory (CD)
-    #ATTENTION: Since you commit multiply times -> Changing the directory multiple times does not work
-    try:
-        cd = 'desktop/git-random-push/'
-        os.chdir(cd)
-        #os.system('pwd')
-    except FileNotFoundError:
-        pass
+        telegram_url = f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_chat_id}&text={commit_message}"
+        requests.get(telegram_url)
 
-    content = f"""
-    言われた文を違う表現に直して返してください。上限は一文です。
-    ですが、以下の表現と完全に一致してはいけません。
-    {str(answers)}
-    """
+        line_bot_api.push_message(line_user_id, messages=TextSendMessage(text=commit_message))
 
-    #DEFINE: The state
-    context = [{"role": "system", "content": content}]
+        os.system("git add .")
+        os.system(f"git commit -m '{commit_message}'")
 
-    #SEND: Message to OpenAI API
-    send_message = context + [{"role": "user", "content": text}]
-    response = openai.ChatCompletion.create(
-        model = "gpt-3.5-turbo-0301",
-        messages = send_message
-    )
+    file.close()
+    os.system("git push")
 
-    #RECEIVE: Message from the server
-    received_message = response.choices[0].message
 
-    #APPEND: The answer to the list so it does not get repeated
-    answers.append(received_message["content"])
-
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={ID}&text={received_message['content']}"
-    print("Sending message from Bot...")
-    print(requests.get(url).json())
-
-    messages = TextSendMessage(text=received_message['content'])
-    line_bot_api.push_message(USER_ID, messages = messages)
-
-    #DEFINE: the git commands as Strings
-    git_add = 'git add .'
-    git_commit = 'git commit -m "' + received_message["content"] + '"'
-
-    #EXECUTES: git add . git commit -m "cat" git push
-    os.system(git_add)
-    os.system(git_commit)
-
-    #RESET: the file name and path name so that it can be looped
-    file_name = '0x'
-    path_name = ''
-
-git_push = 'git push'
-os.system(git_push)
+if __name__ == "__main__":
+    main()
