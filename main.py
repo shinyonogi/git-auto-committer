@@ -1,4 +1,3 @@
-import os
 import random
 from dotenv import load_dotenv
 import openai
@@ -32,8 +31,8 @@ def main():
         with open(file_name, "a") as file:
             file.write(f"{commit_message}\n")
 
-        send_telegram_message(telegram_bot_token, telegram_chat_id, commit_message)
-        send_line_message(line_channel_access_token, line_user_id, commit_message)
+        #send_telegram_message(telegram_bot_token, telegram_chat_id, commit_message)
+        #send_line_message(line_channel_access_token, line_user_id, commit_message)
 
         git_commit_and_push(commit_message)
 
