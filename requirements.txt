@@ -1,4 +1,0 @@
-openai==0.27.6
-requests==2.31.0
-line-bot-sdk==2.4.3
-python-dotenv==1.0.0

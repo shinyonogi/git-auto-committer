@@ -10,7 +10,6 @@ from src.send_messages import send_telegram_message
 from src.generate_messages import gpt_commit_message_generation
 
 from src.git_things import git_commit_and_push
-from src.git_things import git_configure
 
 from src.utils import get_env_use_api
 from src.utils import get_env_variable
@@ -39,11 +38,6 @@ def main():
 
     if use_openai:
         openai.api_key = get_env_variable('OPENAI_API_KEY')
-
-    git_email = get_env_variable('GITHUB_EMAIL')
-    git_name = get_env_variable('GITHUB_NAME')
-
-    git_configure(git_email, git_name)
 
     random_address_name = "0x" + "".join([convert_to_hex(random.randint(0, 15)) for _ in range(10)])
     file_name = f"random_addresses/{random_address_name}"
