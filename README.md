@@ -1,11 +1,11 @@
-# Git Auto Committer 🌱
+# GitHub Auto Contributer 🌱
 
 楽〜にGitHub Contributionカレンダーの草を生やしまくりましょう！自動でテキトーなコミットメッセージを生成し、GitHubにプッシュします。
 
 ## 原理：
 1. **main.py**を実行すると、**randomAddresses** フォルダに新しいファイルが作成されます
 2. オプション：(OpenAI APIを使用して、適当にメッセージをGPTから取得します)
-3. このメッセージをファイルに書き込みます
+3. 自動生成されたメッセージ、またはデフォルトメッセージをファイルに書き込みます
 4. オプション：(生成されたメッセージをLine BotやTelegram Botを介して通知します)
 5. **git add, git commit, git push** を順次実行します
 
@@ -23,6 +23,7 @@ Pythonのライブラリ/モジュールがいくつか必要です。必要で�
 - `openai`
 - `linebot`
 - `from pathlib Path`
+- `logging`
 
 ### 環境変数の設定 (オプション)
 
@@ -45,7 +46,7 @@ Pythonのライブラリ/モジュールがいくつか必要です。必要で�
 ### TelegramとLineの使用
 生成されたメッセージをボット経由で自分に送信することができます。これを有効にするには、関連する環境変数を設定してください。
 
-## Version 1.0 (Updated)
+## Version 1.0 (Updated: 15.09.23)
 
 一度の実行で、5〜15回の自動Commit & Pushを行います。
 
