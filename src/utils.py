@@ -4,7 +4,7 @@ def get_env_use_api(key, default=None):
     value = os.environ.get(key)
     print(key, value)
     if value is None:
-        return "false"
+        return False
     if value.lower() not in ["true", "false"]:
         raise ValueError(f"Invalid value for {key}. Expected 'true' or 'false'.")
     return value.lower() == "true"
