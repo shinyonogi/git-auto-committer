@@ -2,7 +2,7 @@ import os
 
 def get_env_use_api(key, default=None):
     value = os.environ.get(key)
-    print(key, value)
+    print(value.lower() == "true")
     if value is None:
         return False
     if value.lower() not in ["true", "false"]:
