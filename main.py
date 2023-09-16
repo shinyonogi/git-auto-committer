@@ -32,9 +32,9 @@ def main():
 
     load_dotenv()
 
-    use_openai = get_env_use_api('USE_OPENAI') == 'true'
-    use_telegram = get_env_use_api('USE_TELEGRAM') == 'true'
-    use_line = get_env_use_api('USE_LINE') == 'true'
+    use_openai = get_env_use_api('USE_OPENAI') == True
+    use_telegram = get_env_use_api('USE_TELEGRAM') == True
+    use_line = get_env_use_api('USE_LINE') == True
 
     print(use_openai)
 
