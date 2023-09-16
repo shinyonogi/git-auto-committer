@@ -2,7 +2,6 @@ import requests
 import logging
 from linebot import LineBotApi, exceptions
 from linebot.models import TextSendMessage
-
 from requests.exceptions import RequestException
 
 from src.utils import get_env_variable
