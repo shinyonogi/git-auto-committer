@@ -1,6 +1,7 @@
 import os
 import logging
 
+
 def git_commit_and_push(commit_message):
     if os.system("git add .") != 0:
         logging.error("Failed to execute 'git add .'.")

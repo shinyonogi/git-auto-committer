@@ -6,6 +6,7 @@ from requests.exceptions import RequestException
 
 from src.utils import get_env_variable
 
+
 def send_telegram_message(message):
     try:
         telegram_bot_token = get_env_variable('TELEGRAM_BOT_TOKEN')

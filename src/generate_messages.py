@@ -1,11 +1,12 @@
 import logging
 import openai
 
+
 message_to_gpt = f"""
 Give me an interesting random fact in one sentence.
 """
-
 message = [{"role": "user", "content": message_to_gpt}]
+
 
 def gpt_commit_message_generation():
     try:

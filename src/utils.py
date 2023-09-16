@@ -1,5 +1,6 @@
 import os
 
+
 def get_env_use_api(key, default=None):
     value = os.environ.get(key)
     if value is None:
@@ -8,11 +9,13 @@ def get_env_use_api(key, default=None):
         raise ValueError(f"Invalid value for {key}. Expected 'true' or 'false'.")
     return value == "true"
 
+
 def get_env_variable(key, default=None):
     value = os.environ.get(key)
     if value is None:
         raise ValueError(f"{key} is not set in the environment. Please define it in the .env file!")
     return value
+
 
 def convert_to_hex(n):
     if not (0 <= n <= 15):

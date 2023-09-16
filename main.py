@@ -12,6 +12,7 @@ from src.utils import get_env_use_api
 from src.utils import get_env_variable
 from src.utils import convert_to_hex
 
+
 def main():
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 
