@@ -36,6 +36,8 @@ def main():
     use_telegram = get_env_use_api('USE_TELEGRAM') == 'true'
     use_line = get_env_use_api('USE_LINE') == 'true'
 
+    print(use_openai)
+
     if use_openai:
         openai.api_key = get_env_variable('OPENAI_API_KEY')
 
