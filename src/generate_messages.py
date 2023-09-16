@@ -1,7 +1,6 @@
 import logging
 import openai
 
-#GPTに送信するメッセージです。自由にいじってください！
 message_to_gpt = f"""
 Give me an interesting random fact in one sentence.
 """
